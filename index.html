@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>GUNLESSEN — Dein Weg zur Ausbildung</title>
+
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --surface: #ffffff;
+      --surface-2: #f0f3f8;
+      --text: #172033;
+      --muted: #697386;
+      --primary: #315efb;
+      --primary-dark: #2448c7;
+      --success: #18a66a;
+      --warning: #e5a11a;
+      --danger: #dc4c64;
+      --border: #e4e8f0;
+      --shadow: 0 12px 35px rgba(28, 43, 74, 0.08);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .app {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* =========================
+       SIDEBAR
+    ========================= */
+
+    .sidebar {
+      width: 260px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 24px 16px;
+      position: fixed;
+      inset: 0 auto 0 0;
+      z-index: 20;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 12px 28px;
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: var(--primary);
+      color: white;
+      font-weight: 900;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .nav button {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      padding: 12px 14px;
+      border-radius: 12px;
+      text-align: left;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      transition: .2s;
+    }
+
+    .nav button:hover,
+    .nav button.active {
+      background: #edf2ff;
+      color: var(--primary);
+    }
+
+    .sidebar-pro {
+      margin-top: 28px;
+      padding: 18px;
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, #edf2ff, #f7f9ff);
+    }
+
+    .sidebar-pro h4 {
+      margin-bottom: 8px;
+    }
+
+    .sidebar-pro p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .btn-primary {
+      border: 0;
+      background: var(--primary);
+      color: white;
+      padding: 11px 15px;
+      border-radius: 11px;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    .main {
+      margin-left: 260px;
+      width: calc(100% - 260px);
+      padding: 28px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .topbar h1 {
+      font-size: 28px;
+      letter-spacing: -0.8px;
+    }
+
+    .topbar p {
+      color: var(--muted);
+      margin-top: 5px;
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #dce5ff;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      background: linear-gradient(135deg, #172a68, #315efb);
+      color: white;
+      border-radius: 24px;
+      padding: 30px;
+      display: flex;
+      justify-content: space-between;
+      gap: 25px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-content {
+      max-width: 650px;
+    }
+
+    .eyebrow {
+      font-size: 13px;
+      opacity: .8;
+      margin-bottom: 9px;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+    }
+
+    .hero h2 {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      opacity: .88;
+      line-height: 1.6;
+      max-width: 620px;
+    }
+
+    .hero-progress {
+      min-width: 210px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .circle {
+      width: 125px;
+      height: 125px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, #172a68 56%, transparent 57%),
+        conic-gradient(#fff 0 38%, rgba(255,255,255,.2) 38% 100%);
+      display: grid;
+      place-items: center;
+      font-size: 25px;
+      font-weight: 800;
+    }
+
+    /* =========================
+       CARDS
+    ========================= */
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .stat-value {
+      font-size: 27px;
+      font-weight: 800;
+    }
+
+    .stat-small {
+      color: var(--success);
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    .section {
+      margin-top: 28px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .section-header h3 {
+      font-size: 20px;
+    }
+
+    .section-header span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .learning-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .course {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: .2s;
+    }
+
+    .course:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .course-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .course-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 13px;
+      background: #edf2ff;
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      font-size: 21px;
+    }
+
+    .badge {
+      height: fit-content;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      background: #eaf8f2;
+      color: var(--success);
+    }
+
+    .badge.pro {
+      background: #fff5dc;
+      color: #a16b00;
+    }
+
+    .course h4 {
+      margin-bottom: 7px;
+      font-size: 17px;
+    }
+
+    .course p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .progress {
+      height: 7px;
+      background: var(--surface-2);
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    .progress div {
+      height: 100%;
+      background: var(--primary);
+      border-radius: inherit;
+    }
+
+    .course-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .course-footer button {
+      border: 0;
+      background: transparent;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* =========================
+       TODAY
+    ========================= */
+
+    .today {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+
+    .lesson {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lesson:last-child {
+      border-bottom: 0;
+    }
+
+    .lesson-number {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: #edf2ff;
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+    }
+
+    .lesson-info {
+      flex: 1;
+    }
+
+    .lesson-info strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .lesson-info span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* =========================
+       VIEWS
+    ========================= */
+
+    .view {
+      display: none;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    .simple-page {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+
+    .simple-page h2 {
+      margin-bottom: 8px;
+    }
+
+    .simple-page > p {
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .module-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .module {
+      padding: 17px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .module small {
+      color: var(--muted);
+      display: block;
+      margin-top: 5px;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    .mobile-menu {
+      display: none;
+    }
+
+    @media (max-width: 1000px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .learning-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .sidebar {
+        transform: translateX(-100%);
+        transition: .25s;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .main {
+        margin-left: 0;
+        width: 100%;
+        padding: 18px;
+      }
+
+      .mobile-menu {
+        display: block;
+        border: 0;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        font-size: 19px;
+      }
+
+      .topbar {
+        gap: 12px;
+      }
+
+      .topbar h1 {
+        font-size: 22px;
+      }
+
+      .hero {
+        flex-direction: column;
+      }
+
+      .hero-progress {
+        justify-content: flex-start;
+      }
+
+      .grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 22px;
+      }
+
+      .hero h2 {
+        font-size: 24px;
+      }
+
+      .profile {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+      <div class="brand-mark">G</div>
+      GUNLESSEN
+    </div>
+
+    <nav class="nav">
+
+      <button class="active" onclick="showView('dashboard', this)">
+        🏠
+        Dashboard
+      </button>
+
+      <button onclick="showView('ausbildung', this)">
+        🎓
+        Mein Ausbildungsweg
+      </button>
+
+      <button onclick="showView('fachlernen', this)">
+        ⚙️
+        Fachlernen
+      </button>
+
+      <button onclick="showView('deutsch', this)">
+        🇩🇪
+        Arbeitsplatz Deutsch
+      </button>
+
+      <button onclick="showView('pruefung', this)">
+        📝
+        Prüfungstraining
+      </button>
+
+      <button onclick="showView('bewerbung', this)">
+        💼
+        Bewerbung & Gespräch
+      </button>
+
+      <button onclick="showView('lexikon', this)">
+        📚
+        Fachlexikon
+      </button>
+
+      <button onclick="showView('profil', this)">
+        👤
+        Profil
+      </button>
+
+    </nav>
+
+    <div class="sidebar-pro">
+      <h4>GUNLESSEN Pro</h4>
+      <p>
+        Lerne gezielter mit vollständigem Prüfungstraining,
+        Fachkarten und erweiterten Lerninhalten.
+      </p>
+      <button class="btn-primary">
+        Pro entdecken
+      </button>
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+
+      <button class="mobile-menu" onclick="toggleSidebar()">
+        ☰
+      </button>
+
+      <div>
+        <h1 id="pageTitle">Guten Abend, Ali 👋</h1>
+        <p id="pageSubtitle">
+          Bereit für deine nächste Lernsession?
+        </p>
+      </div>
+
+      <div class="profile">
+        <div>
+          <strong>Ali</strong>
+          <small style="display:block;color:#697386;">
+            Elektroniker
+          </small>
+        </div>
+
+        <div class="avatar">
+          A
+        </div>
+      </div>
+
+    </header>
+
+
+    <!-- =========================
+         DASHBOARD
+    ========================= -->
+
+    <section class="view active" id="dashboard">
+
+      <div class="hero">
+
+        <div class="hero-content">
+
+          <div class="eyebrow">
+            Dein Ausbildungsweg
+          </div>
+
+          <h2>
+            Schritt für Schritt zum erfolgreichen Abschluss.
+          </h2>
+
+          <p>
+            Lerne Fachwissen, Deutsch am Arbeitsplatz und
+            Prüfungskompetenz – strukturiert und praxisnah für deine Ausbildung.
+          </p>
+
+        </div>
+
+        <div class="hero-progress">
+          <div class="circle">
+            38%
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- STATS -->
+
+      <div class="grid">
+
+        <div class="stat">
+          <div class="stat-label">Gesamtfortschritt</div>
+          <div class="stat-value">38%</div>
+          <div class="stat-small">+6% diese Woche</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label">Lernzeit</div>
+          <div class="stat-value">4h 25m</div>
+          <div class="stat-small">diese Woche</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label">Fachkarten</div>
+          <div class="stat-value">127</div>
+          <div class="stat-small">gelernt</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label">Lernserie</div>
+          <div class="stat-value">7 Tage</div>
+          <div class="stat-small">Weiter so!</div>
+        </div>
+
+      </div>
+
+
+      <!-- TODAY -->
+
+      <div class="section">
+
+        <div class="section-header">
+          <h3>Heute lernen</h3>
+          <span>3 Einheiten</span>
+        </div>
+
+        <div class="today">
+
+          <div class="lesson">
+
+            <div class="lesson-number">
+              01
+            </div>
+
+            <div class="lesson-info">
+              <strong>
+                Elektrische Grundlagen
+              </strong>
+
+              <span>
+                Fachlernen · 15 Minuten
+              </span>
+            </div>
+
+            <button class="btn-primary">
+              Starten
+            </button>
+
+          </div>
+
+
+          <div class="lesson">
+
+            <div class="lesson-number">
+              02
+            </div>
+
+            <div class="lesson-info">
+              <strong>
+                Sicherheitsregeln auf der Baustelle
+              </strong>
+
+              <span>
+                Arbeitsplatz Deutsch · 10 Minuten
+              </span>
+            </div>
+
+            <button class="btn-primary">
+              Starten
+            </button>
+
+          </div>
+
+
+          <div class="lesson">
+
+            <div class="lesson-number">
+              03
+            </div>
+
+            <div class="lesson-info">
+              <strong>
+                Fachbegriffe wiederholen
+              </strong>
+
+              <span>
+                Fachlexikon · 8 Minuten
+              </span>
+            </div>
+
+            <button class="btn-primary">
+              Starten
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- LEARNING AREAS -->
+
+      <div class="section">
+
+        <div class="section-header">
+          <h3>Deine Lernbereiche</h3>
+          <span>Ausbildung</span>
+        </div>
+
+        <div class="learning-grid">
+
+
+          <article class="course">
+
+            <div class="course-top">
+
+              <div class="course-icon">
+                ⚙️
+              </div>
+
+              <span class="badge">
+                42% abgeschlossen
+              </span>
+
+            </div>
+
+            <h4>
+              Fachlernen
+            </h4>
+
+            <p>
+              Fachwissen für deinen Ausbildungsberuf:
+              Grundlagen, Werkzeuge, Materialien und typische
+              Arbeitssituationen.
+            </p>
+
+            <div class="progress">
+              <div style="width:42%"></div>
+            </div>
+
+            <div class="course-footer">
+              <span>24 von 57 Lektionen</span>
+              <button onclick="showView('fachlernen')">
+                Öffnen →
+              </button>
+            </div>
+
+          </article>
+
+
+          <article class="course">
+
+            <div class="course-top">
+
+              <div class="course-icon">
+                🇩🇪
+              </div>
+
+              <span class="badge">
+                31%
+              </span>
+
+            </div>
+
+            <h4>
+              Arbeitsplatz Deutsch
+            </h4>
+
+            <p>
+              Deutsch, das du wirklich während deiner Ausbildung
+              brauchst: Kollegen, Betrieb, Berufsschule und Baustelle.
+            </p>
+
+            <div class="progress">
+              <div style="width:31%"></div>
+            </div>
+
+            <div class="course-footer">
+              <span>18 von 58 Lektionen</span>
+              <button onclick="showView('deutsch')">
+                Öffnen →
+              </button>
+            </div>
+
+          </article>
+
+
+          <article class="course">
+
+            <div class="course-top">
+
+              <div class="course-icon">
+                📝
+              </div>
+
+              <span class="badge pro">
+                PRO
+              </span>
+
+            </div>
+
+            <h4>
+              Prüfungstraining
+            </h4>
+
+            <p>
+              Übe mit realistischen Aufgaben und bereite dich
+              systematisch auf deine Prüfung vor.
+            </p>
+
+            <div class="progress">
+              <div style="width:18%"></div>
+            </div>
+
+            <div class="course-footer">
+              <span>Pro-Bereich</span>
+              <button>
+                Entdecken →
+              </button>
+            </div>
+
+          </article>
+
+
+          <article class="course">
+
+            <div class="course-top">
+
+              <div class="course-icon">
+                💼
+              </div>
+
+              <span class="badge">
+                Kostenlos
+              </span>
+
+            </div>
+
+            <h4>
+              Bewerbung & Vorstellungsgespräch
+            </h4>
+
+            <p>
+              Lebenslauf, Bewerbung und typische Fragen im
+              Vorstellungsgespräch für Ausbildung.
+            </p>
+
+            <div class="progress">
+              <div style="width:65%"></div>
+            </div>
+
+            <div class="course-footer">
+              <span>6 Module</span>
+              <button onclick="showView('bewerbung')">
+                Öffnen →
+              </button>
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         AUSBILDUNGSWEG
+    ========================= -->
+
+    <section class="view" id="ausbildung">
+
+      <div class="simple-page">
+
+        <h2>Mein Ausbildungsweg</h2>
+
+        <p>
+          Dein persönlicher Lernweg – von den Grundlagen
+          bis zur Prüfung.
+        </p>
+
+        <div class="module-list">
+
+          <div class="module">
+            <div>
+              <strong>1. Grundlagen</strong>
+              <small>Basiswissen für deinen Ausbildungsberuf</small>
+            </div>
+            <span>✓</span>
+          </div>
+
+          <div class="module">
+            <div>
+              <strong>2. Fachwissen</strong>
+              <small>Werkzeuge, Materialien und Arbeitsprozesse</small>
+            </div>
+            <span>38%</span>
+          </div>
+
+          <div class="module">
+            <div>
+              <strong>3. Berufsschule</strong>
+              <small>Lernstoff verstehen und wiederholen</small>
+            </div>
+            <span>12%</span>
+          </div>
+
+          <div class="module">
+            <div>
+              <strong>4. Prüfungsvorbereitung</strong>
+              <small>Prüfungsaufgaben und Simulationen</small>
+            </div>
+            <span>PRO</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         FACHLERNEN
+    ========================= -->
+
+    <section class="view" id="fachlernen">
+
+      <div class="simple-page">
+
+        <h2>Fachlernen</h2>
+
+        <p>
+          Fachwissen verständlich erklärt – passend zu deinem
+          Ausbildungsalltag.
+        </p>
+
+        <div class="module-list">
+
+          <div class="module">
+            <div>
+              <strong>Elektrische Grundlagen</strong>
+              <small>Spannung · Strom · Widerstand · Leistung</small>
+            </div>
+            <button class="btn-primary">Lernen</button>
+          </div>
+
+          <div class="module">
+            <div>
+              <strong>Werkzeuge & Messgeräte</strong>
+              <small>Multimeter · Prüfgeräte · Handwerkzeuge</small>
+            </div>
+            <button class="btn-primary">Lernen</button>
+          </div>
+
+          <div class="module">
+            <div>
+              <strong>Schaltungen verstehen</strong>
+              <small>Reihenschaltung · Parallelschaltung · Schaltpläne</small>
+            </div>
+            <button class="btn-primary">Lernen</button>
+          </div>
+
+          <div class="module">
+            <div>
+              <strong>Arbeitssicherheit</strong>
+              <small>Gefahren · Schutzmaßnahmen · sichere Arbeitsabläufe</small>
+            </div>
+            <button class="btn-primary">Lernen</button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         DEUTSCH
+    ========================= -->
+
+    <section class="view" id="deutsch">
+
+      <div class="simple-page">
+
+        <h2>Arbeitsplatz Deutsch</h2>
+
+        <p>
+          Deutsch für Situationen, die du während deiner Ausbildung
+          tatsächlich erlebst.
+        </p>
+
+        <div class="module-list">
+
+          <div class="module">
+            <div>
+              <strong>Mit Kollegen sprechen</strong>
+              <small>Fragen stellen · etwas erklären · Hilfe holen</small>
+            </div>
+            <button class="btn-primary">Start</button>
+          </div>
+
+          <div class="module">
+            <div>
+              <strong>Arbeitsaufträge verstehen</strong>
+              <small>Anweisungen · Aufgaben · Rückfragen</small>
+            </div>
+            <button class="btn-primary">Start</button>
+          </div>
+
+          <div class="module">
+            <div>
+              <strong>Berufsschule</strong>
+              <small>Unterricht · Lehrer · Aufgaben · Fachsprache</small>
+            </div>
+            <button class="btn-primary">Start</button>
+          </div>
+
+          <div class="module">
+            <div>
+              <strong>Telefon & Kommunikation</strong>
+              <small>Professionell telefonieren und Nachrichten verstehen</small>
+            </div>
+            <button class="btn-primary">Start</button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         PRÜFUNG
+    ========================= -->
+
+    <section class="view" id="pruefung">
+
+      <div class="simple-page">
+
+        <h2>Prüfungstraining</h2>
+
+        <p>
+          Realistische Prüfungssituationen und gezieltes Training.
+        </p>
+
+        <div class="module-list">
+
+          <div class="module">
+            <div>
+              <strong>Prüfungsfragen</strong>
+              <small>Fachwissen unter Prüfungsbedingungen</small>
+            </div>
+            <span class="badge pro">PRO</span>
+          </div>
+
+          <div class="module">
+            <div>
+              <strong>Prüfungssimulation</strong>
+              <small>Komplette Simulation mit Auswertung</small>
+            </div>
+            <span class="badge pro">PRO</span>
+          </div>
+
+          <div class="module">
+            <div>
+              <strong>Schwachstellen analysieren</strong>
+              <small>Erkenne, welche Themen du wiederholen solltest</small>
+            </div>
+            <span class="badge pro">PRO</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         BEWERBUNG
+    ========================= -->
+
+    <section class="view" id="bewerbung">
+
+      <div class="simple-page">
+
+        <h2>Bewerbung & Vorstellungsgespräch</h2>
+
+        <p>
+          Bereite dich auf den Einstieg in deine Ausbildung vor.
+        </p>
+
+        <div class="module-list">
+
+          <div class="module">
+            <div>
+              <strong>Lebenslauf für Ausbildung</strong>
+              <small>Aufbau, Inhalte und typische Fehler</small>
+            </div>
+            <button class="btn-primary">Öffnen</button>
+          </div>
+
+          <div class="module">
+            <div>
+              <strong>Bewerbung schreiben</strong>
+              <small>Anschreiben verständlich und professionell formulieren</small>
+            </div>
+            <button class="btn-primary">Öffnen</button>
+          </div>
+
+          <div class="module">
+            <div>
+              <strong>Vorstellungsgespräch</strong>
+              <small>Typische Fragen und passende Antworten</small>
+            </div>
+            <button class="btn-primary">Öffnen</button>
+          </div>
+
+          <div class="module">
+            <div>
+              <strong>Arbeitsvertrag verstehen</strong>
+              <small>Wichtige Begriffe und Punkte</small>
+            </div>
+            <button class="btn-primary">Öffnen</button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         LEXIKON
+    ========================= -->
+
+    <section class="view" id="lexikon">
+
+      <div class="simple-page">
+
+        <h2>Fachlexikon</h2>
+
+        <p>
+          Wichtige Fachbegriffe aus deinem Ausbildungsalltag.
+        </p>
+
+        <div class="module-list">
+
+          <div class="module">
+            <div>
+              <strong>Spannung</strong>
+              <small>Elektrische Potentialdifferenz – Einheit: Volt</small>
+            </div>
+            <span>DE → FA</span>
+          </div>
+
+          <div class="module">
+            <div>
+              <strong>Widerstand</strong>
+              <small>Maß für die Behinderung des Stromflusses</small>
+            </div>
+            <span>DE → FA</span>
+          </div>
+
+          <div class="module">
+            <div>
+              <strong>Leistung</strong>
+              <small>Elektrische Leistung – Einheit: Watt</small>
+            </div>
+            <span>DE → FA</span>
+          </div>
+
+          <div class="module">
+            <div>
+              <strong>Schaltplan</strong>
+              <small>Grafische Darstellung einer elektrischen Schaltung</small>
+            </div>
+            <span>DE → FA</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         PROFIL
+    ========================= -->
+
+    <section class="view" id="profil">
+
+      <div class="simple-page">
+
+        <h2>Mein Profil</h2>
+
+        <p>
+          Deine persönlichen Lern- und Ausbildungsdaten.
+        </p>
+
+        <div class="module-list">
+
+          <div class="module">
+            <div>
+              <strong>Name</strong>
+              <small>Ali</small>
+            </div>
+          </div>
+
+          <div class="module">
+            <div>
+              <strong>Ausbildungsberuf</strong>
+              <small>Elektroniker</small>
+            </div>
+          </div>
+
+          <div class="module">
+            <div>
+              <strong>Lernfortschritt</strong>
+              <small>38%</small>
+            </div>
+          </div>
+
+          <div class="module">
+            <div>
+              <strong>Tarif</strong>
+              <small>Free</small>
+            </div>
+
+            <button class="btn-primary">
+              Pro entdecken
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<script>
+
+  function showView(viewId, clickedButton) {
+
+    // Hide all views
+    document.querySelectorAll(".view").forEach(view => {
+      view.classList.remove("active");
+    });
+
+    // Show selected view
+    const selected = document.getElementById(viewId);
+
+    if (selected) {
+      selected.classList.add("active");
+    }
+
+    // Active navigation
+    document.querySelectorAll(".nav button").forEach(button => {
+      button.classList.remove("active");
+    });
+
+    if (clickedButton) {
+      clickedButton.classList.add("active");
+    }
+
+    // Page titles
+    const titles = {
+
+      dashboard: [
+        "Guten Abend, Ali 👋",
+        "Bereit für deine nächste Lernsession?"
+      ],
+
+      ausbildung: [
+        "Mein Ausbildungsweg",
+        "Dein persönlicher Weg durch die Ausbildung."
+      ],
+
+      fachlernen: [
+        "Fachlernen",
+        "Fachwissen für deinen Ausbildungsberuf."
+      ],
+
+      deutsch: [
+        "Arbeitsplatz Deutsch",
+        "Deutsch für deinen Ausbildungsalltag."
+      ],
+
+      pruefung: [
+        "Prüfungstraining",
+        "Bereite dich gezielt auf deine Prüfung vor."
+      ],
+
+      bewerbung: [
+        "Bewerbung & Vorstellungsgespräch",
+        "Bereite deinen Einstieg in die Ausbildung vor."
+      ],
+
+      lexikon: [
+        "Fachlexikon",
+        "Wichtige Fachbegriffe für deinen Ausbildungsalltag."
+      ],
+
+      profil: [
+        "Mein Profil",
+        "Verwalte deine persönlichen Lerninformationen."
+      ]
+
+    };
+
+    if (titles[viewId]) {
+      document.getElementById("pageTitle").textContent =
+        titles[viewId][0];
+
+      document.getElementById("pageSubtitle").textContent =
+        titles[viewId][1];
+    }
+
+    // Close mobile sidebar
+    document.getElementById("sidebar").classList.remove("open");
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
+
+  function toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("open");
+  }
+
+</script>
+
+</body>
+</html>
